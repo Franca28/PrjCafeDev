@@ -30,14 +30,8 @@ public class PedidoService {
 	public PedidoResponseDTO savePedido(PedidoRequestDTO dto) {
 		Cliente cliente = clienteRepository.findById(dto.getClienteId())
 				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-
-		Pedido pedido = new Pedido();
-		pedido.setValorTotal(dto.getValorTotal());
-		pedido.setDescricao(dto.getDescricao());
-		pedido.setDataPedido(dto.getDataPedido());
-		pedido.setCliente(cliente);
-		
-		pedidoRepository.save(pedido);
+				
+		Pedido pedido = pedidoRepository.save(pedidoMapper.toEntity(dto, cliente));
 
 		return pedidoMapper.toResponse(pedido);
 	}

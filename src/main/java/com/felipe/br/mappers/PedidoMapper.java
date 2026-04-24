@@ -1,4 +1,4 @@
- package com.felipe.br.mappers;
+package com.felipe.br.mappers;
 
 import org.springframework.stereotype.Component;
 
@@ -10,19 +10,20 @@ import com.felipe.br.entities.Pedido;
 
 @Component
 public class PedidoMapper {
-	
+
 	private final ClienteMapper clienteMapper;
-	
+
 	public PedidoMapper(ClienteMapper clienteMapper) {
 		this.clienteMapper = clienteMapper;
 	}
-	
-	public Pedido toRequest(PedidoRequestDTO pedidoRequest) {
+
+	public Pedido toEntity(PedidoRequestDTO pedidoRequest, Cliente clienteRef) {
+		
 		if (pedidoRequest == null) {
 			return null;
 		}
 		
-		return new Pedido(pedidoRequest.getDescricao(), pedidoRequest.getValorTotal(), pedidoRequest.getDataPedido(), pedidoRequest.getClienteId());
+		return new Pedido(pedidoRequest.getDescricao(), pedidoRequest.getValorTotal(), pedidoRequest.getDataPedido(), clienteRef);
 	}
 
 	public PedidoResponseDTO toResponse(Pedido pedido) {
@@ -30,10 +31,10 @@ public class PedidoMapper {
 		if (pedido == null) {
 			return null;
 		}
-		
+
 		ClienteResponseDTO clienteDTO = clienteMapper.toResponse(pedido.getCliente());
 
-		return new PedidoResponseDTO(pedido.getId(), pedido.getDescricao(), pedido.getValorTotal(), pedido.getDataPedido(), clienteDTO);
+		return new PedidoResponseDTO(pedido.getId(), pedido.getDescricao(), pedido.getValorTotal(),
+				pedido.getDataPedido(), clienteDTO);
 	}
 }
-

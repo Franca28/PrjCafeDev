@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.felipe.br.dto.ClienteRequestDTO;
 import com.felipe.br.dto.ClienteResponseDTO;
-import com.felipe.br.entities.Cliente;
+import com.felipe.br.dto.ClienteUpdateDTO;
 import com.felipe.br.services.ClienteService;
-import com.felipe.demo.entities.Usuario;
 
 @RestController
 @RequestMapping("/cliente")
@@ -39,7 +38,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/buscar")
-	public List<ClienteResponseDTO> buscarClientePorId() {
+	public List<ClienteResponseDTO> buscarTodosClientes() {
 		return clienteService.findAllClientes();
 	}
 	
@@ -49,8 +48,8 @@ public class ClienteController {
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public ResponseEntity<Cliente> atualizarClientePorId(@RequestBody Cliente clienteNovo, @PathVariable Long id) {
-		Cliente atualizado = clienteService.updateClienteById(clienteNovo, id);
+	public ResponseEntity<ClienteResponseDTO> atualizarClientePorId(@RequestBody ClienteUpdateDTO clienteNovo, @PathVariable Long id) {
+		ClienteResponseDTO atualizado = clienteService.updateClienteById(clienteNovo, id);
 		
 		if (atualizado != null) {
 			return ResponseEntity.ok(atualizado);

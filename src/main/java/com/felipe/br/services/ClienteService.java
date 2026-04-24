@@ -25,11 +25,7 @@ public class ClienteService {
 
 	public ClienteResponseDTO saveCliente(ClienteRequestDTO dto) {
 		
-		Cliente cliente = new Cliente();
-		cliente.setNome(dto.getNome());
-		cliente.setEmail(dto.getEmail());
-		
-		clienteRepository.save(cliente);
+		Cliente cliente = clienteRepository.save(clienteMapper.toEntity(dto));
 		
 		return clienteMapper.toResponse(cliente);
 	}

@@ -9,7 +9,7 @@ import com.felipe.br.entities.Cliente;
 @Component
 public class ClienteMapper {
 	
-	public Cliente toRequest(ClienteRequestDTO clienteRequest) {
+	public Cliente toEntity(ClienteRequestDTO clienteRequest) {
 		if (clienteRequest == null) {
 			return null;
 		}
