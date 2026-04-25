@@ -9,14 +9,14 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_cliente")
 public class Cliente {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String nome;
 	private String email;
-	
+
 	public Cliente() {
 	}
 
@@ -54,5 +54,5 @@ public class Cliente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 }
