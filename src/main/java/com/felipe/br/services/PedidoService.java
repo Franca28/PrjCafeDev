@@ -1,5 +1,6 @@
 package com.felipe.br.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +31,10 @@ public class PedidoService {
 	public PedidoResponseDTO savePedido(PedidoRequestDTO dto) {
 		Cliente cliente = clienteRepository.findById(dto.getClienteId())
 				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+		
+		LocalDateTime dataPedido = LocalDateTime.now();
 				
-		Pedido pedido = pedidoRepository.save(pedidoMapper.toEntity(dto, cliente));
+		Pedido pedido = pedidoRepository.save(pedidoMapper.toEntity(dto, cliente, dataPedido));
 
 		return pedidoMapper.toResponse(pedido);
 	}

@@ -1,5 +1,7 @@
 package com.felipe.br.mappers;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 import com.felipe.br.dto.ClienteResponseDTO;
@@ -17,13 +19,13 @@ public class PedidoMapper {
 		this.clienteMapper = clienteMapper;
 	}
 
-	public Pedido toEntity(PedidoRequestDTO pedidoRequest, Cliente clienteRef) {
+	public Pedido toEntity(PedidoRequestDTO pedidoRequest, Cliente clienteRef, LocalDateTime dataPedido) {
 		
 		if (pedidoRequest == null) {
 			return null;
 		}
 		
-		return new Pedido(pedidoRequest.getDescricao(), pedidoRequest.getValorTotal(), pedidoRequest.getDataPedido(), clienteRef);
+		return new Pedido(pedidoRequest.getDescricao(), pedidoRequest.getValorTotal(), dataPedido, clienteRef);
 	}
 
 	public PedidoResponseDTO toResponse(Pedido pedido) {
