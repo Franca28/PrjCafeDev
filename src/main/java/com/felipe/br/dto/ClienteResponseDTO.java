@@ -6,9 +6,6 @@ public class ClienteResponseDTO {
 	private String nome;
 	private String email;
 
-	public ClienteResponseDTO() {
-		}
-
 	public ClienteResponseDTO(Long id, String nome, String email) {
 			this.id = id;
 			this.nome = nome;
