@@ -18,6 +18,9 @@ public class PedidoUpdateDTO {
 	@NotNull
 	private LocalDateTime dataPedidoAtualizada;
 
+	public PedidoUpdateDTO() {
+	}
+
 	public PedidoUpdateDTO(Long clienteId, @NotBlank String descricao, @NotNull Double valorTotal,
 			@NotNull LocalDateTime dataPedidoAtualizada) {
 		this.clienteId = clienteId;

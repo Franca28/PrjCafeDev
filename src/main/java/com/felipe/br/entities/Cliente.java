@@ -24,6 +24,9 @@ public class Cliente {
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Pedido> pedidos = new ArrayList<>();
+	
+	public Cliente() {
+	}
 
 	public Cliente(Long id, String nome, String email) {
 		this.id = id;

@@ -15,6 +15,9 @@ public class PedidoResponseDTO {
 	
 	private ClienteResponseDTO cliente;
 	
+	public PedidoResponseDTO() {
+	}
+
 	public PedidoResponseDTO(Long id, String descricao, Double valorTotal, LocalDateTime dataPedido, ClienteResponseDTO cliente) {
 		this.id = id;
 		this.descricao = descricao;

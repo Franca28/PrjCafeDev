@@ -12,6 +12,9 @@ public class ClienteUpdateDTO {
 	@Email
 	private String email;
 	
+	public ClienteUpdateDTO() {
+	}
+
 	public ClienteUpdateDTO(@NotBlank String nome, @NotBlank @Email String email) {
 		this.nome = nome;
 		this.email = email;

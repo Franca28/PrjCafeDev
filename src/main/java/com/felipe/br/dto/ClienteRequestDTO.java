@@ -12,6 +12,9 @@ public class ClienteRequestDTO {
 	@Email
 	private String email;
 	
+	public ClienteRequestDTO() {
+	}
+
 	public ClienteRequestDTO(@NotBlank String nome, @NotBlank @Email String email) {
 		this.nome = nome;
 		this.email = email;

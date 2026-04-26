@@ -25,6 +25,9 @@ public class Pedido {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
+	
+	public Pedido() {
+	}
 
 	public Pedido(Long id, String descricao, Double valorTotal, LocalDateTime dataPedido, Cliente cliente) {
 		this.id = id;

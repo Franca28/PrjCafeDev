@@ -13,6 +13,9 @@ public class PedidoRequestDTO {
 	@NotNull
 	private Double valorTotal;
 
+	public PedidoRequestDTO() {
+	}
+
 	public PedidoRequestDTO(Long clienteId, @NotBlank String descricao, @NotNull Double valorTotal) {
 		this.clienteId = clienteId;
 		this.descricao = descricao;
