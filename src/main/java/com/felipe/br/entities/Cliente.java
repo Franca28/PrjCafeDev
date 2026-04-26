@@ -1,9 +1,14 @@
 package com.felipe.br.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,6 +21,9 @@ public class Cliente {
 
 	private String nome;
 	private String email;
+	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente(Long id, String nome, String email) {
 		this.id = id;
