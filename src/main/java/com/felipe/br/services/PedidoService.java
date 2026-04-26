@@ -22,7 +22,8 @@ public class PedidoService {
 	private final ClienteRepository clienteRepository;
 	private final PedidoMapper pedidoMapper;
 
-	public PedidoService(PedidoRepository pedidoRepository, ClienteRepository clienteRepository, PedidoMapper pedidoMapper) {
+	public PedidoService(PedidoRepository pedidoRepository, ClienteRepository clienteRepository,
+			PedidoMapper pedidoMapper) {
 		this.pedidoRepository = pedidoRepository;
 		this.clienteRepository = clienteRepository;
 		this.pedidoMapper = pedidoMapper;
@@ -31,26 +32,21 @@ public class PedidoService {
 	public PedidoResponseDTO savePedido(PedidoRequestDTO dto) {
 		Cliente cliente = clienteRepository.findById(dto.getClienteId())
 				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-		
-		LocalDateTime dataPedido = LocalDateTime.now();
-				
-		Pedido pedido = pedidoRepository.save(pedidoMapper.toEntity(dto, cliente, dataPedido));
+
+		Pedido pedido = pedidoRepository.save(pedidoMapper.toEntity(dto, cliente, LocalDateTime.now()));
 
 		return pedidoMapper.toResponse(pedido);
 	}
-	
+
 	public PedidoResponseDTO findPedidoById(Long id) {
-		
-		Pedido pedido = pedidoRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
 
 		return pedidoMapper.toResponse(pedido);
 	}
-	
+
 	public List<PedidoResponseDTO> findAllPedidos() {
-		return pedidoRepository.findAll()
-				.stream()
-				.map(pedido -> pedidoMapper.toResponse(pedido))
+		return pedidoRepository.findAll().stream().map(pedido -> pedidoMapper.toResponse(pedido))
 				.collect(Collectors.toList());
 	}
 
@@ -61,12 +57,15 @@ public class PedidoService {
 	}
 
 	public PedidoResponseDTO updatePedidoById(PedidoUpdateDTO newPedido, Long id) {
-		Pedido pedido = pedidoRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
 
+		Cliente newCliente = clienteRepository.findById(newPedido.getClienteId())
+				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+		pedido.setCliente(newCliente);
 		pedido.setDescricao(newPedido.getDescricao());
 		pedido.setValorTotal(newPedido.getValorTotal());
-		pedido.setDataPedido(newPedido.getDataPedido());
+		pedido.setDataPedido(LocalDateTime.now());
 
 		pedidoRepository.save(pedido);
 

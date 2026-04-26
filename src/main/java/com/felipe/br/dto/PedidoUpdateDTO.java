@@ -16,17 +16,17 @@ public class PedidoUpdateDTO {
 	private Double valorTotal;
 
 	@NotNull
-	private LocalDateTime dataPedido = LocalDateTime.now();
+	private LocalDateTime dataPedidoAtualizada;
 
 	public PedidoUpdateDTO() {
 	}
 
 	public PedidoUpdateDTO(Long clienteId, @NotBlank String descricao, @NotNull Double valorTotal,
-			@NotNull LocalDateTime dataPedido) {
+			@NotNull LocalDateTime dataPedidoAtualizada) {
 		this.clienteId = clienteId;
 		this.descricao = descricao;
 		this.valorTotal = valorTotal;
-		this.dataPedido = dataPedido;
+		this.dataPedidoAtualizada = dataPedidoAtualizada;
 	}
 
 	public Long getClienteId() {
@@ -53,11 +53,11 @@ public class PedidoUpdateDTO {
 		this.valorTotal = valorTotal;
 	}
 
-	public LocalDateTime getDataPedido() {
-		return dataPedido;
+	public LocalDateTime getDataPedidoAtualizada() {
+		return dataPedidoAtualizada;
 	}
 
-	public void setDataPedido(LocalDateTime dataPedido) {
-		this.dataPedido = dataPedido;
+	public void setDataPedidoAtualizada(LocalDateTime dataPedidoAtualizada) {
+		this.dataPedidoAtualizada = dataPedidoAtualizada;
 	}
 }
