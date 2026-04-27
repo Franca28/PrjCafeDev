@@ -27,6 +27,11 @@ public class ClienteController {
 		this.clienteService = clienteService;
 	}
 	
+	@GetMapping("/home")
+	public String paginaInicial() {
+		return "PrjCafeDev/index";
+	}
+	
 	@PostMapping("/salvar")
 	public ClienteResponseDTO salvarCliente(@RequestBody ClienteRequestDTO cliente) {
 		return clienteService.saveCliente(cliente);
