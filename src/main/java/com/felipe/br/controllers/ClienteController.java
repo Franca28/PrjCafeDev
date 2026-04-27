@@ -29,7 +29,7 @@ public class ClienteController {
 	
 	@GetMapping("/home")
 	public String paginaInicial() {
-		return "PrjCafeDev/index";
+		return "index";
 	}
 	
 	@PostMapping("/salvar")
