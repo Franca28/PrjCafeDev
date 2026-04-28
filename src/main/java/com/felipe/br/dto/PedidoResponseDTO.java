@@ -25,6 +25,13 @@ public class PedidoResponseDTO {
 		this.dataPedido = dataPedido;
 		this.cliente = cliente;
 	}
+	
+	public PedidoResponseDTO(Long id, String descricao, Double valorTotal, LocalDateTime dataPedido) {
+		this.id = id;
+		this.descricao = descricao;
+		this.valorTotal = valorTotal;
+		this.dataPedido = dataPedido;
+	}
 
 	public Long getId() {
 		return id;

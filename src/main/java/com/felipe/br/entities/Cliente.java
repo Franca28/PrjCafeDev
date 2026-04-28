@@ -63,4 +63,8 @@ public class Cliente {
 		this.email = email;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
 }

@@ -1,7 +1,6 @@
 package com.felipe.br.services;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -24,9 +23,9 @@ public class ClienteService {
 	}
 
 	public ClienteResponseDTO saveCliente(ClienteRequestDTO dto) {
-		
+
 		Cliente cliente = clienteRepository.save(clienteMapper.toEntity(dto));
-		
+
 		return clienteMapper.toResponse(cliente);
 	}
 
@@ -37,11 +36,28 @@ public class ClienteService {
 		return clienteMapper.toResponse(cliente);
 	}
 
+	public ClienteResponseDTO findClienteByIdWithPedidos(Long id) {
+		Cliente cliente = clienteRepository.findClienteByIdWithPedidos(id)
+				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+		return clienteMapper.toResponseWithPedidos(cliente);
+	}
+
+	public List<ClienteResponseDTO> findClientesByNome(String nome) {
+		List<Cliente> clientes = clienteRepository.findClienteByNome(nome);
+
+		if (clientes.isEmpty()) {
+			throw new RuntimeException("Cliente(s) não encontrado(s)");
+		}
+
+		List<ClienteResponseDTO> clientesResponse = clientes.stream()
+				.map(cliente -> clienteMapper.toResponseWithPedidos(cliente)).toList();
+
+		return clientesResponse;
+	}
+
 	public List<ClienteResponseDTO> findAllClientes() {
-		return clienteRepository.findAll()
-				.stream()
-				.map(cliente -> clienteMapper.toResponse(cliente))
-				.collect(Collectors.toList());
+		return clienteRepository.findAll().stream().map(cliente -> clienteMapper.toResponse(cliente)).toList();
 	}
 
 	public void deleteClienteById(Long id) {

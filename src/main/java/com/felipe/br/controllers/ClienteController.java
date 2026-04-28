@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.felipe.br.dto.ClienteRequestDTO;
@@ -40,6 +41,16 @@ public class ClienteController {
 	@GetMapping("/buscar/{id}")
 	public ClienteResponseDTO buscarClientePorId(@PathVariable Long id) {
 		return clienteService.findClienteById(id);
+	}
+	
+	@GetMapping("/buscar")
+	public List<ClienteResponseDTO> buscarClientesPorNome(@RequestParam String nome) {
+		return clienteService.findClientesByNome(nome);
+	}
+	
+	@GetMapping("/buscar-com-pedidos/{id}")
+	public ClienteResponseDTO buscarClienteComPedidos(@PathVariable Long id) {
+		return clienteService.findClienteByIdWithPedidos(id);
 	}
 	
 	@GetMapping("/buscar")
