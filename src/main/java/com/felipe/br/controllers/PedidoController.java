@@ -17,8 +17,14 @@ import com.felipe.br.dto.PedidoResponseDTO;
 import com.felipe.br.dto.PedidoUpdateDTO;
 import com.felipe.br.services.PedidoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/pedido")
+@Tag(name = "Pedido", description = "Endpoints para gestão de pedidos")
 public class PedidoController {
 
 	private final PedidoService pedidoService;
@@ -27,26 +33,47 @@ public class PedidoController {
 		this.pedidoService = pedidoService;
 	}
 
+	@Operation(summary = "Registra um novo pedido", description = "Cria um novo pedido associado a um cliente")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "201", description = "Pedido criado com sucesso"),
+		@ApiResponse(responseCode = "400", description = "Erro na validação dos dados do pedido")
+	})
 	@PostMapping("/salvar")
 	public PedidoResponseDTO salvarPedido(@RequestBody PedidoRequestDTO pedido) {
 		return pedidoService.savePedido(pedido);
 	}
 
+	@Operation(summary = "Procura um pedido pelo ID", description = "Retorna os detalhes de um pedido específico")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "Pedido encontrado"),
+		@ApiResponse(responseCode = "404", description = "Pedido não existe no sistema")
+	})
 	@GetMapping("/buscar/{id}")
 	public PedidoResponseDTO buscarPedidoPorId(@PathVariable Long id) {
 		return pedidoService.findPedidoById(id);
 	}
 
+	@Operation(summary = "Lista todos os pedidos", description = "Retorna uma lista de todos os pedidos registrados")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Pedidos encontrados"),
+			@ApiResponse(responseCode = "404", description = "Não há pedidos no sistema")
+		})
 	@GetMapping("/buscar")
 	public List<PedidoResponseDTO> buscarTodosPedidos() {
 		return pedidoService.findAllPedidos();
 	}
 
+	@Operation(summary = "Elimina um pedido", description = "Remove permanentemente um pedido através do seu ID")
 	@DeleteMapping("/deletar/{id}")
 	public void deletarPedidoPorId(@PathVariable Long id) {
 		pedidoService.deletePedidoById(id);
 	}
 
+	@Operation(summary = "Atualiza um pedido existente", description = "Altera as informações de um pedido já registrado")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "Pedido atualizado com sucesso"),
+		@ApiResponse(responseCode = "404", description = "Não foi possível encontrar o pedido para atualizar")
+	})
 	@PutMapping("/atualizar/{id}")
 	public ResponseEntity<PedidoResponseDTO> atualizarPedidoPorId(@RequestBody PedidoUpdateDTO pedidoNovo,
 			@PathVariable Long id) {
