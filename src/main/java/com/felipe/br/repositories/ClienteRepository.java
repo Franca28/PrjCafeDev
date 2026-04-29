@@ -13,7 +13,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	@Query("SELECT c FROM Cliente c JOIN FETCH c.pedidos WHERE c.nome = :nome")
 	List<Cliente> findClienteByNome(String nome);
 	
-	@Query("SELECT c FROM Cliente c JOIN FETCH c.pedidos WHERE c.id = :id")
+	@Query("SELECT c FROM Cliente c LEFT JOIN FETCH c.pedidos WHERE c.id = :id")
 	Optional<Cliente> findClienteByIdWithPedidos(Long id);
 
 }
