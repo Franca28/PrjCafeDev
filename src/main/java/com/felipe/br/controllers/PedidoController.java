@@ -2,6 +2,7 @@ package com.felipe.br.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,46 +35,48 @@ public class PedidoController {
 	}
 
 	@Operation(summary = "Registra um novo pedido", description = "Cria um novo pedido associado a um cliente")
-	@ApiResponses(value = {
-		@ApiResponse(responseCode = "201", description = "Pedido criado com sucesso"),
-		@ApiResponse(responseCode = "400", description = "Erro na validação dos dados do pedido")
-	})
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Pedido criado com sucesso"),
+			@ApiResponse(responseCode = "400", description = "Erro na validação dos dados do pedido") })
 	@PostMapping("/salvar")
-	public PedidoResponseDTO salvarPedido(@RequestBody PedidoRequestDTO pedido) {
-		return pedidoService.savePedido(pedido);
+	public ResponseEntity<PedidoResponseDTO> salvarPedido(@RequestBody PedidoRequestDTO pedido) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.savePedido(pedido));
 	}
 
 	@Operation(summary = "Procura um pedido pelo ID", description = "Retorna os detalhes de um pedido específico")
-	@ApiResponses(value = {
-		@ApiResponse(responseCode = "200", description = "Pedido encontrado"),
-		@ApiResponse(responseCode = "404", description = "Pedido não existe no sistema")
-	})
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedido encontrado"),
+			@ApiResponse(responseCode = "404", description = "Pedido não existe no sistema") })
 	@GetMapping("/buscar/{id}")
-	public PedidoResponseDTO buscarPedidoPorId(@PathVariable Long id) {
-		return pedidoService.findPedidoById(id);
+	public ResponseEntity<PedidoResponseDTO> buscarPedidoPorId(@PathVariable Long id) {
+		PedidoResponseDTO resultado = pedidoService.findPedidoById(id);
+
+		if (resultado != null) {
+			return ResponseEntity.ok(resultado);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@Operation(summary = "Lista todos os pedidos", description = "Retorna uma lista de todos os pedidos registrados")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Pedidos encontrados"),
-			@ApiResponse(responseCode = "404", description = "Não há pedidos no sistema")
-		})
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedidos encontrados"),
+			@ApiResponse(responseCode = "404", description = "Não há pedidos no sistema") })
 	@GetMapping("/buscar")
-	public List<PedidoResponseDTO> buscarTodosPedidos() {
-		return pedidoService.findAllPedidos();
+	public ResponseEntity<List<PedidoResponseDTO>> buscarTodosPedidos() {
+		List<PedidoResponseDTO> resultado = pedidoService.findAllPedidos();
+		return ResponseEntity.ok(resultado);
 	}
 
 	@Operation(summary = "Elimina um pedido", description = "Remove permanentemente um pedido através do seu ID")
+	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Pedido removido com sucesso"),
+			@ApiResponse(responseCode = "404", description = "Não foi possível encontrar o pedido para remover") })
 	@DeleteMapping("/deletar/{id}")
-	public void deletarPedidoPorId(@PathVariable Long id) {
+	public ResponseEntity<Void> deletarPedidoPorId(@PathVariable Long id) {
 		pedidoService.deletePedidoById(id);
+		return ResponseEntity.noContent().build();
 	}
 
 	@Operation(summary = "Atualiza um pedido existente", description = "Altera as informações de um pedido já registrado")
-	@ApiResponses(value = {
-		@ApiResponse(responseCode = "200", description = "Pedido atualizado com sucesso"),
-		@ApiResponse(responseCode = "404", description = "Não foi possível encontrar o pedido para atualizar")
-	})
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedido atualizado com sucesso"),
+			@ApiResponse(responseCode = "404", description = "Não foi possível encontrar o pedido para atualizar") })
 	@PutMapping("/atualizar/{id}")
 	public ResponseEntity<PedidoResponseDTO> atualizarPedidoPorId(@RequestBody PedidoUpdateDTO pedidoNovo,
 			@PathVariable Long id) {

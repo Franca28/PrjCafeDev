@@ -2,6 +2,7 @@ package com.felipe.br.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,12 +37,12 @@ public class ClienteController {
 	
 	@Operation(summary = "Cria um novo cliente", description = "Recebe os dados e salva um cliente na base de dados")
 	@ApiResponses(value = {
-		@ApiResponse(responseCode = "200", description = "Cliente criado com sucesso"),
+		@ApiResponse(responseCode = "201", description = "Cliente criado com sucesso"),
 		@ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos")
 	})
 	@PostMapping("/salvar")
-	public ClienteResponseDTO salvarCliente(@RequestBody ClienteRequestDTO cliente) {
-		return clienteService.saveCliente(cliente);
+	public ResponseEntity<ClienteResponseDTO> salvarCliente(@RequestBody ClienteRequestDTO cliente) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.saveCliente(cliente));
 	}
 	
 	@Operation(summary = "Busca cliente por ID", description = "Retorna os detalhes de um único cliente")
@@ -50,8 +51,14 @@ public class ClienteController {
 			@ApiResponse(responseCode = "404", description = "Cliente não encontrado")
 		})
 	@GetMapping("/buscar/{id}")
-	public ClienteResponseDTO buscarClientePorId(@PathVariable Long id) {
-		return clienteService.findClienteById(id);
+	public ResponseEntity<ClienteResponseDTO> buscarClientePorId(@PathVariable Long id) {
+		ClienteResponseDTO resultado = clienteService.findClienteById(id);
+		
+		if (resultado != null) {
+			return ResponseEntity.ok(resultado);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	@Operation(summary = "Busca clientes por nome", description = "Filtra clientes que contenham o nome enviado por parâmetro")
@@ -60,8 +67,14 @@ public class ClienteController {
 			@ApiResponse(responseCode = "404", description = "Clientes não encontrados")
 		})
 	@GetMapping("/buscar-por-nome")
-	public List<ClienteResponseDTO> buscarClientesPorNome(@RequestParam String nome) {
-		return clienteService.findClientesByNome(nome);
+	public ResponseEntity<List<ClienteResponseDTO>> buscarClientesPorNome(@RequestParam String nome) {
+		List<ClienteResponseDTO> resultado = clienteService.findClientesByNome(nome);
+		
+		if (resultado != null) {
+			return ResponseEntity.ok(resultado);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	@Operation(summary = "Busca cliente e seus pedidos", description = "Retorna os dados do cliente juntamente com a sua lista de pedidos")
@@ -70,8 +83,14 @@ public class ClienteController {
 			@ApiResponse(responseCode = "404", description = "Cliente não encontrado")
 		})
 	@GetMapping("/buscar-com-pedidos/{id}")
-	public ClienteResponseDTO buscarClienteComPedidos(@PathVariable Long id) {
-		return clienteService.findClienteByIdWithPedidos(id);
+	public ResponseEntity<ClienteResponseDTO> buscarClienteComPedidos(@PathVariable Long id) {
+		ClienteResponseDTO resultado = clienteService.findClienteByIdWithPedidos(id);
+		
+		if (resultado != null) {
+			return ResponseEntity.ok(resultado);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	@Operation(summary = "Lista todos os clientes", description = "Retorna uma lista completa de todos os clientes registrados")
@@ -80,14 +99,24 @@ public class ClienteController {
 			@ApiResponse(responseCode = "404", description = "Clientes não encontrados")
 		})
 	@GetMapping("/buscar")
-	public List<ClienteResponseDTO> buscarTodosClientes() {
-		return clienteService.findAllClientes();
+	public ResponseEntity<List<ClienteResponseDTO>> buscarTodosClientes() {
+		List<ClienteResponseDTO> resultado = clienteService.findAllClientes();
+		
+		if (resultado != null) {
+			return ResponseEntity.ok(resultado);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	@Operation(summary = "Elimina um cliente", description = "Remove o registro do cliente permanentemente através do ID")
+	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Cliente removido com sucesso"),
+			@ApiResponse(responseCode = "404", description = "Não foi possível encontrar o cliente para remover") })
 	@DeleteMapping("/deletar/{id}")
-	public void deletarClientePorId(@PathVariable Long id) {
+	public ResponseEntity<Void> deletarClientePorId(@PathVariable Long id) {
 		clienteService.deleteClienteById(id);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 	@Operation(summary = "Atualiza um cliente", description = "Modifica os dados de um cliente existente")
