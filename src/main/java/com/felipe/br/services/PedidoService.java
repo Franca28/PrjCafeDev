@@ -47,7 +47,7 @@ public class PedidoService {
 
 	public List<PedidoResponseDTO> findAllPedidos() {
 		return pedidoRepository.findAll().stream().map(pedido -> pedidoMapper.toResponse(pedido))
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	public void deletePedidoById(Long id) {

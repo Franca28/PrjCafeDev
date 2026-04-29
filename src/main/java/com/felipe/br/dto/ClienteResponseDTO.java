@@ -2,6 +2,9 @@ package com.felipe.br.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClienteResponseDTO {
 	
 	private Long id;
@@ -17,6 +20,7 @@ public class ClienteResponseDTO {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
+		this.pedidos = null;
 	}
 
 	public ClienteResponseDTO(Long id, String nome, String email, List<PedidoResponseDTO> pedidos) {
