@@ -1,0 +1,151 @@
+.container {
+    display: grid;
+    min-height: 100vh;
+    grid-template: 
+    "nav main" minmax(0, 1fr)
+    "nav main" minmax(0, auto)
+    "footer footer" auto / 280px 1fr;
+    transition: grid-template-columns 0.3s ease;
+}
+
+.container:has(nav.nav-collapsed) {
+    grid-template-columns: 100px 1fr;
+}
+
+nav {
+    grid-area: nav;
+    background: linear-gradient(135deg, var(--contentBackgroundN) 0%, var(--contentBackgroundN) 100%);
+    font-size: 1.2em;
+    border-right: 3px solid var(--borderColor);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    user-select: none;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text);
+    border-left: 4px solid transparent;
+}
+
+li:hover {
+    background-color: var(--hover);
+    border-left-color: var(--accent);
+    padding-left: 24px;
+}
+
+li a {
+    margin-left: 12px;
+    font-weight: 500;
+}
+
+main {
+    grid-area: main;
+    background-color: var(--contentBackgroundM);
+    overflow-y: auto;
+}
+footer {
+    grid-area: footer;
+    background: linear-gradient(90deg, var(--contentBackgroundF) 0%, var(--contentBackgroundN) 100%);
+    border-top: 3px solid var(--borderColor);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 25px 40px;
+    color: var(--accent);
+    font-size: 1em;
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.3);
+    gap: 20px;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: var(--accent);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: var(--buttonH);
+    text-shadow: 0 0 8px rgba(212, 165, 255, 0.5);
+}
+
+
+
+.icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+}
+
+nav > button {
+    background-color: var(--button);
+    border: none;
+    padding: 12px 20px;
+    margin: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-weight: 600;
+}
+
+nav > button:hover {
+    background-color: var(--buttonH);
+    box-shadow: 0 4px 12px rgba(125, 99, 255, 0.4);
+}
+
+.seta {
+    width: 16px;
+    height: 16px;
+}
+
+/* Navbar Collapsed Styles */
+.nav-collapsed {
+    width: 100px;
+    transition: width 0.3s ease;
+}
+
+.nav-collapsed li {
+    justify-content: center;
+    padding: 12px;
+    position: relative;
+}
+
+.nav-collapsed li:hover {
+    padding-left: 12px;
+    border-left: 4px solid transparent;
+}
+
+.nav-collapsed li a {
+    display: none;
+}
+
+.nav-collapsed > button {
+    padding: 12px;
+    margin: 20px auto;
+    width: 60px;
+    height: 60px;
+}

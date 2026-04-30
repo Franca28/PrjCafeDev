@@ -1,0 +1,232 @@
+.home-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--text);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, var(--contentBackgroundN) 0%, var(--contentBackground) 100%);
+  border-radius: 15px;
+  border: 2px solid var(--borderColor);
+}
+
+.hero h1 {
+  font-size: 3em;
+  margin-bottom: 15px;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(212, 165, 255, 0.3);
+}
+
+.hero .subtitle {
+  font-size: 1.3em;
+  color: var(--text);
+  font-weight: 300;
+}
+
+/* Features Section */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 60px;
+}
+
+.feature-card {
+  background: linear-gradient(135deg, var(--contentBackgroundN) 0%, var(--contentBackground) 100%);
+  padding: 30px;
+  border-radius: 12px;
+  border-left: 4px solid var(--accent);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(212, 165, 255, 0.2);
+  border-left-color: var(--buttonH);
+}
+
+.feature-icon {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.feature-card p {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+/* Guide Section */
+.guide {
+  margin-bottom: 60px;
+}
+
+.guide h2 {
+  font-size: 2em;
+  color: var(--accent);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.step {
+  background: var(--contentBackgroundN);
+  padding: 25px;
+  border-radius: 10px;
+  border: 2px solid var(--borderColor);
+  transition: all 0.3s ease;
+}
+
+.step:hover {
+  background: var(--contentBackground);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: var(--button);
+  color: var(--accent);
+  border-radius: 50%;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.step h4 {
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.step p {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+/* Tips Section */
+.tips {
+  background: linear-gradient(135deg, var(--contentBackgroundN) 0%, var(--contentBackground) 100%);
+  padding: 40px;
+  border-radius: 12px;
+  border: 2px solid var(--borderColor);
+  margin-bottom: 60px;
+}
+
+.tips h2 {
+  font-size: 2em;
+  color: var(--accent);
+  margin-bottom: 25px;
+}
+
+.tips-list {
+  list-style: none;
+  padding: 0;
+}
+
+.tips-list li {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--borderColor);
+  font-size: 1em;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.tips-list li:last-child {
+  border-bottom: none;
+}
+
+.tips-list strong {
+  color: var(--accent);
+}
+
+/* Support Section */
+.support {
+  text-align: center;
+  background: var(--contentBackgroundN);
+  padding: 40px;
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+}
+
+.support h2 {
+  font-size: 2em;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.support p {
+  font-size: 1.05em;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 15px;
+}
+
+.contact-info {
+  background: var(--contentBackground);
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+.contact-info a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.contact-info a:hover {
+  color: var(--buttonH);
+  text-shadow: 0 0 8px rgba(212, 165, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 20px;
+  }
+
+  .hero h1 {
+    font-size: 2em;
+  }
+
+  .hero .subtitle {
+    font-size: 1.1em;
+  }
+
+  .guide h2,
+  .tips h2,
+  .support h2 {
+    font-size: 1.5em;
+  }
+
+  .features,
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}
